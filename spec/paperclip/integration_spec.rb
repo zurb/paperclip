@@ -63,8 +63,10 @@ describe 'Paperclip' do
         end
         @d2 = Dummy.find(@dummy.id)
         @original_timestamp = @d2.avatar_updated_at
-        @d2.avatar.reprocess!
-        @d2.save
+        Timecop.travel(1) do
+          @d2.avatar.reprocess!
+          @d2.save
+        end
       end
 
       it "creates its thumbnails properly" do

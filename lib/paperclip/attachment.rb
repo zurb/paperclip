@@ -444,11 +444,13 @@ module Paperclip
     end
 
     def assign_timestamps
+      now = Time.now.change(usec: 0)
+
       if has_enabled_but_unset_created_at?
-        instance_write(:created_at, Time.now)
+        instance_write(:created_at, now)
       end
 
-      instance_write(:updated_at, Time.now)
+      instance_write(:updated_at, now)
     end
 
     def post_process_file
